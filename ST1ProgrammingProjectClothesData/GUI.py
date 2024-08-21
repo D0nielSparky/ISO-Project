@@ -66,7 +66,7 @@ class GUI:
         self.material_button.pack()
 
         # Frame 4
-        self.display = tk.Text(self.frame4, bg="light green", width=20, height=10)
+        self.display = tk.Text(self.frame4, bg="light green", width=30, height=10)
         self.display.pack(pady=(80, 0), padx=20)
         self.exit_button = tk.Button(self.frame4, text="Exit", command=self.window.destroy, padx=20, pady=4)
         self.exit_button.pack(pady=(10, 10))
@@ -85,17 +85,80 @@ class GUI:
         self.display.delete(0.0, tk.END)
 
         brand = self.click_brand_var.get()
-        category = self.click_category_var.get()
-        color = self.click_color_var.get()
-        size = self.click_size_var.get()
-        material = self.click_material_var.get()
+        if brand == "Adidas":
+            brand = 0
+        elif brand == "New Balance":
+            brand = 1
+        elif brand == "Nike":
+            brand = 2
+        elif brand == "Puma":
+            brand = 3
+        elif brand == "Reebok":
+            brand = 4
+        else:
+            brand = 5
 
-        result_string += "*** Manifesting Price ***\n"
+        category = self.click_category_var.get()
+        if category == "Dress":
+            category = 0
+        elif category == "Jacket":
+            category = 1
+        elif category == "Jeans":
+            category = 2
+        elif category == "Shoes":
+            category = 3
+        elif category == "Sweater":
+            category = 4
+        else:
+            category = 5
+
+        color = self.click_color_var.get()
+        if color == "Black":
+            color = 0
+        elif color == "Blue":
+            color = 1
+        elif brand == "Green":
+            color = 2
+        elif color == "Red":
+            color = 3
+        elif color == "White":
+            color = 4
+        else:
+            color = 5
+
+        size = self.click_size_var.get()
+        if size == "L":
+            size = 0
+        elif size == "M":
+            size = 1
+        elif size == "S":
+            size = 2
+        elif size == "XL":
+            size = 3
+        elif size == "XS":
+            size = 4
+        else:
+            size = 5
+
+        material = self.click_material_var.get()
+        if material == "Cotton":
+            material = 0
+        elif brand == "Denim":
+            material = 1
+        elif brand == "Nylon":
+            material = 2
+        elif material == "Polyester":
+            material = 3
+        elif material == "Silk":
+            material = 4
+        else:
+            material = 5
+
+        disp_string = "** Price Prediction **\n\n"
         item_info = (brand, category, color, size, material)
-        price_prediction = best_model.predict([item_info])
-        disp_string = ("This prediction has an accuracy of:", str(model_accuracy))
-        result = price_prediction
-        self.display.insert("1.0", result_string)
+        price_prediction = rf.predict([item_info])
+        disp_string += ("The predicted price is: " + str(round(price_prediction[0], 2)))
+        self.display.insert("1.0", disp_string)
 
 
 GUI()
