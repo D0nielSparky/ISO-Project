@@ -9,7 +9,7 @@ from sklearn.neighbors import KNeighborsRegressor
 class UsedCarsPredictionApp:
     def __init__(self, master):
         self.master = master
-        self.master.title('Boston House Price Prediction')
+        self.master.title('Used Car Price Prediction')
         self.data = pd.read_csv('Used_Cars.csv')
         self.sliders = []
 
