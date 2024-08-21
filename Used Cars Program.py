@@ -22,7 +22,7 @@ class UsedCarsPredictionApp:
         self.model = KNeighborsRegressor()
         self.model.fit(self.X_train, self.y_train)
 
-        self.year_text = tk.Spinbox(self.master, state='readonly', width=17, from_=2001, to=2024)
+        self.year_text = tk.Spinbox(self.master, width=17, from_=2001, to=2024)
         self.FuelType_text = ttk.Combobox(self.master, state='readonly', width=17)
         self.FuelType_text['values'] = ('Petrol', 'Diesel', 'CNG')
         self.FuelType_text.current(0)
@@ -54,7 +54,7 @@ class UsedCarsPredictionApp:
         inputs = []
         transmission = self.Transmission_text.get()
         fuel_type = self.FuelType_text.get()
-        seats = float(self.Seats_text.get())
+        seats = int(self.Seats_text.get())
 
         if fuel_type == 'Diesel':
             fuel_type = 1
@@ -66,18 +66,19 @@ class UsedCarsPredictionApp:
             transmission = 1
         if transmission == 'Automatic':
             transmission = 2
-        inputs.append(float(self.year_text.get()))
-        inputs.append(fuel_type)
-        inputs.append(transmission)
-        inputs.append(float(self.Mileage_text.get()))
-        inputs.append(float(self.Engine_text.get()))
-        inputs.append(float(self.Power_text.get()))
-        inputs.append(seats)
-        inputs.append(float(self.New_Price_text.get()))
-        price = self.model.predict([inputs])
-        messagebox.showinfo('Predicted Price', f'The predicted house price is ${price[0]:.2f}')
-# except ValueError:
-# messagebox.showinfo('Input Error', 'Inputs must be an Integer')
+        try:
+            inputs.append(int(self.year_text.get()))
+            inputs.append(fuel_type)
+            inputs.append(transmission)
+            inputs.append(float(self.Mileage_text.get()))
+            inputs.append(float(self.Engine_text.get()))
+            inputs.append(float(self.Power_text.get()))
+            inputs.append(seats)
+            inputs.append(float(self.New_Price_text.get()))
+            price = self.model.predict([inputs])
+            messagebox.showinfo('Predicted Price', f'The predicted house price is ${price[0]:.2f}')
+        except ValueError:
+            messagebox.showinfo('Input Error', 'Inputs must be an Integer')
 
 
 if __name__ == '__main__':
