@@ -81,82 +81,82 @@ class GUI:
         tk.mainloop()
 
     def predict_price(self):
-        result_string = ""
         self.display.delete(0.0, tk.END)
+        item_info = [False]*30
 
         brand = self.click_brand_var.get()
-        if brand == "Adidas":
-            brand = 0
-        elif brand == "New Balance":
-            brand = 1
-        elif brand == "Nike":
-            brand = 2
-        elif brand == "Puma":
-            brand = 3
-        elif brand == "Reebok":
-            brand = 4
-        else:
-            brand = 5
 
+        if brand == "Adidas":
+            item_info[0] = True
+        elif brand == "New Balance":
+            item_info[1] = True
+        elif brand == "Nike":
+            item_info[2] = True
+        elif brand == "Puma":
+            item_info[3] = True
+        elif brand == "Reebok":
+            item_info[4] = True
+        else:
+            item_info[5] = True
+            
         category = self.click_category_var.get()
         if category == "Dress":
-            category = 0
+            item_info[6] = True
         elif category == "Jacket":
-            category = 1
+            item_info[7] = True
         elif category == "Jeans":
-            category = 2
+            item_info[8] = True
         elif category == "Shoes":
-            category = 3
+            item_info[9] = True
         elif category == "Sweater":
-            category = 4
+            item_info[10] = True
         else:
-            category = 5
+            item_info[11] = True
 
         color = self.click_color_var.get()
         if color == "Black":
-            color = 0
+            item_info[12] = True
         elif color == "Blue":
-            color = 1
+            item_info[13] = True
         elif brand == "Green":
-            color = 2
+            item_info[14] = True
         elif color == "Red":
-            color = 3
+            item_info[15] = True
         elif color == "White":
-            color = 4
+            item_info[16] = True
         else:
-            color = 5
+            item_info[17] = True
 
         size = self.click_size_var.get()
         if size == "L":
-            size = 0
+            item_info[18] = True
         elif size == "M":
-            size = 1
+            item_info[19] = True
         elif size == "S":
-            size = 2
+            item_info[20] = True
         elif size == "XL":
-            size = 3
+            item_info[21] = True
         elif size == "XS":
-            size = 4
+            item_info[22] = True
         else:
-            size = 5
+            item_info[23] = True
 
         material = self.click_material_var.get()
         if material == "Cotton":
-            material = 0
+            item_info[24] = True
         elif brand == "Denim":
-            material = 1
+            item_info[25] = True
         elif brand == "Nylon":
-            material = 2
+            item_info[26] = True
         elif material == "Polyester":
-            material = 3
+            item_info[27] = True
         elif material == "Silk":
-            material = 4
+            item_info[28] = True
         else:
-            material = 5
+            item_info[29] = True
 
         disp_string = "** Price Prediction **\n\n"
-        item_info = (brand, category, color, size, material)
-        price_prediction = rf.predict([item_info])
+        price_prediction = dtree.predict([item_info])
         disp_string += ("The predicted price is: " + str(round(price_prediction[0], 2)))
         self.display.insert("1.0", disp_string)
 
